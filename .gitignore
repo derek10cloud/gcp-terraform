@@ -4,6 +4,11 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+.terraform
+.terraform.lock.hcl
+backup.tfstate
+terraform.tfstate.backup
+terraform.backup.tfstate
 
 # Crash log files
 crash.log
@@ -27,3 +32,10 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+# direnv
+.direnv
+.envrc
+
+# history
+.history
