@@ -35,7 +35,7 @@ jobs:
         runtime: '${RUNTIME}'
         entry_point: 'test'
         memory_mb: '256'
-        region: 'us-central1'
+        region: '${REGION}'
         source_dir: 'source/'
         project_id: '${PROJECT_ID}'
         description: 'test function'
