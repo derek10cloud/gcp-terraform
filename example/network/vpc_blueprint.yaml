@@ -1,0 +1,72 @@
+vpc:
+  name: ${vpc_name}
+  cidr_set:
+    - primary_cidr: 10.0.0.0/14
+      set_name: first-regions-set
+      regions:
+        - name: us-central1 # 10.0.0.0/16
+          bits: 2 # = /16
+          index: 0 # 10.48.0.0/16
+
+        - name: us-west1 # 10.1.0.0/16
+          bits: 2 # = /16
+          index: 1 # 10.1.0.0/16
+
+        - name: asia-northeast3 # 10.3.0.0/16
+          bits: 2 # = /16
+          index: 3 # 10.3.0.0/16
+
+    # future_cidr
+    # - primary_cidr: 10.4.0.0/14
+    #   set_name: second-regions-set
+    #   regions:
+    #     - name: us-west2 # 10.4.0.0/16
+    #       bits: 2 # = /16
+    #       index: 0 # 10.4.0.0/16
+
+    #     - name: us-west3 # 10.5.0.0/16
+    #       bits: 2 # = /16
+    #       index: 1 # 10.5.0.0/16
+
+    #     - name: us-west4 # 10.7.0.0/16
+    #       bits: 2 # = /16
+    #       index: 3 # 10.7.0.0/16
+
+
+# subnet_zones:
+subnets:
+# 2 == /18
+# 3 == /19
+# 4 == /20
+  - name: public
+    bits: 3 # = /19
+    index: 0 # 10.0.0.0/19
+    vpce: False
+
+  - name: private
+    bits: 2 # = /18
+    index: 1 # 10.0.64.0/18
+    vpce: True
+
+  - name: data
+    bits: 4 # = /20
+    index: 8 # 10.0.128.0/20
+    vpce: True
+
+  - name: user-data
+    bits: 4 # = /20
+    index: 9 # 10.0.144.0/20
+    vpce: False
+
+## global ip address list
+global_ip_address_list:
+  - name: googleapis-ip
+    description: All Google APIs' ip to use private-service-connect in ${vpc_name} vpc
+    purpose: PRIVATE_SERVICE_CONNECT
+    address_type: INTERNAL
+    address: 10.10.0.1
+
+labels:
+  servic_name: common-service
+  environment: dev
+  project: common-network

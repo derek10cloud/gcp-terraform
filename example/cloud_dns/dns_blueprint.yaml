@@ -1,0 +1,23 @@
+# atlantis plan -d global/common/net
+private_zone:
+  - name: googleapis.com
+    description: private dns zone for googleapis.com
+    visibility: private
+    network_ids:
+      - ${vpc_name}
+    records:
+      - name: "googleapis.com"
+        type: "A"
+        ttl: 300
+        values:
+          - 10.10.0.1
+      - name: "*.googleapis.com"
+        type: "CNAME"
+        ttl: 300
+        values:
+          - "googleapis.com." # 레코드 value가 ip가 아닌 domain name일 때는 .을 suffix로 붙여야 함
+
+labels:
+  servic_name: common-service
+  environment: dev
+  project: common-network
